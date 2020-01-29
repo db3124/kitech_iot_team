@@ -110,21 +110,10 @@
 
 	<!-- 메인 컨텐트 끝 -->
 
-
-
-
-
 	<!-- 푸터 시작 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<!-- 푸터 끝 -->
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 </body>
 </html>

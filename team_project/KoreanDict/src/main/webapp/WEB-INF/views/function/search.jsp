@@ -19,6 +19,11 @@
 <!-- 기본 CSS 처리 끝 -->
 
 <style>
+
+
+#searchBox>input[type=text] {
+	text-align: center;
+}
 </style>
 
 
@@ -31,18 +36,22 @@
 
 	<!-- 메인 컨텐트 시작 -->
 
-	<main role="main" class="container">
+	<main role="main" class="container my-auto p-3">
 
 		<div
-			class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
+			class="p-3 my-3 text-white-50 text-center bg-purple rounded box-shadow" id="nav">
+
 			<div class="lh-100">
-				<h3 class="mb-0 text-white lh-100 text-center">국어 사전</h3>
+				<h3 class="mb-0 text-white lh-100">국어 사전</h3>
 			</div>
+
 		</div>
+
+
 
 		<div class="my-3 p-3 bg-white rounded box-shadow">
 			<form method="post" action="<c:url value="/function/dict"/>">
-				<div align="center">
+				<div align="center" id="searchBox">
 					<input type="text" name="q" placeholder="검색어 입력" /> <input
 						type="submit" value="검색">
 				</div>
@@ -51,7 +60,7 @@
 
 		<div class="text-center">
 			<div class="fixed-bottom">
-				<div class="mb-3">From 국립국어원, 우리말샘</div>
+				<div class="mb-3">출처 : 국립국어원, 우리말샘</div>
 			</div>
 		</div>
 
