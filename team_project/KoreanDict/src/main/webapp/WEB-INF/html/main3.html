@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>예보</title>
+    <style>
+        div.box {
+            border : 5px solid #DDD;
+            padding : 10px;
+            margin : 5px;
+            line-height: 160%;
+            width: 300px;
+            float: left;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+</head>
+
+<body>    
+    
+    <script>
+        $(document).ready(function(){
+           	
+        	String dcodeKey = URLDecoder.decode(key, "utf-8");
+        	
+            $.ajax({
+                url : 'http://localhost:8080/mm/dict',
+                data : {
+					key_no:1209,
+        			key: '7EDD1EDA2E0D739DA7565168C0C5262E',
+        			target_type:search,
+        			part:word,
+        			q: +dcodeKey, // 검색하는 단어
+        			sort:dict,
+        			start:1,
+        			num:10;
+                },
+                success : function(res){
+                    
+                    var str = '';
+                    
+                    $(res).find('item').each(function(){
+                        
+                        var q = $(this).find('q').text();
+
+                        
+                        
+                        
+                        str += '<div class="box">\n';
+                        str += '<div>baseDate : '+baseDate+'</div>\n';
+
+                        str += '</div>\n';
+                    });
+                    
+                    
+                    $('body').html(str);
+                }                
+            });
+            
+        });
+    </script>
+    
+</body>
+
+</html>

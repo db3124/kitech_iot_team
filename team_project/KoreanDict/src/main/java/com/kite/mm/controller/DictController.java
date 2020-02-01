@@ -18,6 +18,8 @@ public class DictController {
 	@RequestMapping("/function/dict")
 	public String getInfo(
 			@RequestParam ("q") String keyword,
+			@RequestParam (value="selectPart[]", required=false, defaultValue="") String[] selectPart,
+			@RequestParam (value="sorting[]", required=false, defaultValue="") String[] sorting,
 			Model model) throws UnsupportedEncodingException {
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -28,9 +30,9 @@ public class DictController {
 				+ "?certkey_no=1209"
 				+ "&key=" + dcodeKey
 				+ "&target_type=search"
-				+ "&part=word"
+				+ "&part=" + selectPart
 				+ "&q=" + keyword // 검색하는 단어
-				+ "&sort=dict"
+				+ "&sort=" + sorting
 				+ "&start=1"
 				+ "&num=10";
 
