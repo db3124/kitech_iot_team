@@ -71,66 +71,69 @@ img {
 
 		</div>
 
-		<br> <br> <img
-			src="<%=request.getContextPath()%>/images/logo.png" class="img-fluid"
-			alt="logo"> <br> <br>
+		<div>
+			<br> <br> <img
+				src="<%=request.getContextPath()%>/images/logo.png"
+				class="img-fluid" alt="logo"> <br> <br>
 
-		<div class="my-3 p-3 bg-white rounded box-shadow">
-			<form name="f" method="post" action="<c:url value="/function/dict"/>"
-				onsubmit="return submitCheck()">
+			<div class="my-3 p-3 bg-white rounded box-shadow">
+				<form name="f" method="post"
+					action="<c:url value="/function/dict"/>"
+					onsubmit="return submitCheck()">
 
-				<div class="input-group mb-3" id="searchBox">
+					<div class="input-group mb-3" id="searchBox">
 
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="inputGroupSelect01">검색
-								대상</label>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<label class="input-group-text" for="inputGroupSelect01">검색
+									대상</label>
+							</div>
+							<select class="custom-select" id="select" name="part">
+								<option selected>선택</option>
+								<option value="word">어휘</option>
+								<option value="exam">용례</option>
+							</select>
 						</div>
-						<select class="custom-select" id="select" name="selectPart">
+
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="inputGroupSelect01">정렬</label>
+						</div>
+						<select class="custom-select" id="select" name="sort">
 							<option selected>선택</option>
-							<option value="1">어휘</option>
-							<option value="2">용례</option>
+							<option value="dict">우리말샘순</option>
+							<option value="popular">많이 찾은 순</option>
+							<option value="date">새로 올린 순</option>
+
 						</select>
 					</div>
 
-					<div class="input-group-prepend">
-						<label class="input-group-text" for="inputGroupSelect01">정렬</label>
+					<div class="input-group mb-3">
+						<input type="text" name="q" class="form-control text-center"
+							placeholder="검색어 입력" aria-label="검색어 입력"
+							aria-describedby="button-addon2">
+						<div class="input-group-append">
+							<button
+								class="btn btn-outline-secondary bg-secondary text-white align-center"
+								type="submit" id="submit">검색</button>
+						</div>
 					</div>
-					<select class="custom-select" id="select" name="sorting">
-						<option selected>선택</option>
-						<option value="1">우리말샘순</option>
-						<option value="2">많이 찾은 순</option>
-						<option value="3">새로 올린 순</option>
 
-					</select>
-				</div>
+				</form>
 
-				<div class="input-group mb-3">
-					<input type="text" name="q" class="form-control text-center"
-					placeholder="검색어 입력" aria-label="검색어 입력"
-					aria-describedby="button-addon2">
-					<div class="input-group-append">
-						<button
-						class="btn btn-outline-secondary bg-secondary text-white align-center"
-						type="submit" id="submit">검색</button>
-					</div>
-				</div>
-		</div>
+			</div>
 
-		</form>
+			<div align="center">
+				<div class="text-secondary">검색어는 한글, 영문, 숫자 모두 가능합니다.</div>
+			</div>
 
-		<div align="center">
-			<div class="text-secondary">검색어는 한글, 영문, 숫자 모두 가능합니다.</div>
-		</div>
-
-		<br> <br> <br> <br> <br> <br> <br>
-		<br> <br> <br> <br> <br>
+			<br> <br> <br> <br> <br> <br> <br>
+			<br> <br> <br> <br> <br>
 		</div>
 
 		<small class="d-block text-right mt-3 border-top border-gray">
 
-			<br> <a href="https://opendict.korean.go.kr/main">출처 :
-				국립국어원, 우리말샘</a>
+			<br> 출처 : <a href="https://opendict.korean.go.kr/main">국립국어원,
+				우리말샘</a>
 
 		</small>
 
