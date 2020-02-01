@@ -16,8 +16,16 @@
 		id="navbarsExampleDefault">
 		<ul class="navbar-nav mr-auto">
 
-			<li class="nav-item"><a class="nav-link"
-				href="<c:url value="/function/search"/>">사전</a></li>
+				
+			<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="https://example.com"
+					id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">사전</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
+						<a class="dropdown-item" href="<c:url value="/function/dictMain"/>">사전 검색</a> 
+						<a class="dropdown-item" href="<c:url value="/function/dictMain2"/>">사전 내용</a>
+					</div>
+				</li>	
 
 		</ul>
 

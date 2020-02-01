@@ -9,15 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
-public class DictController {
+public class DictSearchController {
 	
 	@CrossOrigin
-	@RequestMapping("/function/dict")
+	@RequestMapping("/function/dictSearch")
 	public String getInfo(
 			@RequestParam ("q") String keyword,
 			@RequestParam (value="part", defaultValue="word") String part,
@@ -28,8 +27,6 @@ public class DictController {
 		RestTemplate restTemplate = new RestTemplate();
 		String key = "7EDD1EDA2E0D739DA7565168C0C5262E";
 		String dcodeKey = URLDecoder.decode(key, "utf-8");
-		
-		
 		
 		String url = "https://opendict.korean.go.kr/api/search"
 				+ "?certkey_no=1209"
@@ -45,7 +42,7 @@ public class DictController {
 		
 		model.addAttribute("result", result);
 
-		return "function/dict";		
+		return "function/dictSearch";		
 	}
 	
 }
