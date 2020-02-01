@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Dictionary</title>
+<title>5G</title>
 
 
 <!-- 기본 CSS 처리 시작 -->

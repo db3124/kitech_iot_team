@@ -16,7 +16,3 @@
 	<script src="<c:url value="/js/bootstrap/bootstrap.min.js"/>"></script>
 	<script src="<c:url value="/js/assets/js/vendor/holder.min.js"/>"></script>
 	<script src="<c:url value="/js/bootstrap/offcanvas.js"/>"></script>
-	
-	
-	
-	

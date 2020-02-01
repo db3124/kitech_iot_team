@@ -29,7 +29,7 @@ public class DictController {
 				+ "&key=" + dcodeKey
 				+ "&target_type=search"
 				+ "&part=word"
-				+ "&q=" + keyword
+				+ "&q=" + keyword // 검색하는 단어
 				+ "&sort=dict"
 				+ "&start=1"
 				+ "&num=10";
