@@ -15,17 +15,6 @@
 		<div class="navbar-collapse offcanvas-collapse"
 			id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
-				<%-- <li class="nav-item "><a class="nav-link" href="#">HOME
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item"><a class="nav-link" href="<c:url value="/member/regist"/>">회원가입</a>	</li>
-				<c:if test="${loginInfo eq null}">
-				<li class="nav-item"><a class="nav-link" href="<c:url value="/member/login"/>">회원로그인</a></li>
-				</c:if>
-				<c:if test="${loginInfo ne null}">
-				<li class="nav-item"><a class="nav-link" href="<c:url value="/member/logout"/>">회원로그아웃</a></li>
-				</c:if>
-				<li class="nav-item"><a class="nav-link" href="<c:url value="/member/list"/>">회원리스트</a></li> --%>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="https://example.com"
 					id="dropdown01" data-toggle="dropdown" aria-haspopup="true"

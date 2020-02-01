@@ -33,8 +33,6 @@ public class DictController {
 				+ "&sort=dict"
 				+ "&start=1"
 				+ "&num=10";
-		
-		// 한글이 아니거나, 숫자거나, 공백이 있거나...
 
 		String result = restTemplate.getForObject(url, String.class);
 		
