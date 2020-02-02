@@ -2,7 +2,6 @@ package com.kite.mm.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class DictContentController {
-	
+
 	@CrossOrigin
 	@RequestMapping("/function/dictContent")
 	public String getInfo(

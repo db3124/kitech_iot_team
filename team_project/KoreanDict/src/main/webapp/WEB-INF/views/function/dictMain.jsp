@@ -26,6 +26,10 @@ img {
 #submit {
 	cursor: pointer;
 }
+
+#select {
+	cursor: pointer;
+}
 </style>
 
 <script
@@ -88,7 +92,7 @@ img {
 								<label class="input-group-text" for="inputGroupSelect01">검색
 									대상</label>
 							</div>
-							<select class="custom-select" id="select" name="part">
+							<select class="custom-select" id="part" name="part">
 								<option value="word">어휘</option>
 								<option value="exam">용례</option>
 							</select>
@@ -97,7 +101,7 @@ img {
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="inputGroupSelect01">정렬</label>
 						</div>
-						<select class="custom-select" id="select" name="sort">	
+						<select class="custom-select" id="sort" name="sort">	
 							<option value="dict">우리말샘순</option>
 							<option value="popular">많이 찾은 순</option>
 							<option value="date">새로 올린 순</option>
@@ -105,7 +109,7 @@ img {
 					</div>
 
 					<div class="input-group mb-3">
-						<input type="text" name="q" class="form-control text-center"
+						<input type="text" id="q" name="q" class="form-control text-center"
 							placeholder="검색어 입력" aria-label="검색어 입력"
 							aria-describedby="button-addon2">
 						<div class="input-group-append">

@@ -26,6 +26,10 @@ img {
 #submit {
 	cursor: pointer;
 }
+
+#select {
+	cursor: pointer;
+}
 </style>
 
 <script
@@ -36,7 +40,7 @@ img {
 
 		if (document.f.q.value == "") {
 
-			alert('검색어를 입력해주세요.');
+			alert('표제어 정보 또는 대상 코드를 입력해주세요.');
 
 			return false;
 
@@ -96,7 +100,8 @@ img {
 
 						<div class="input-group mb-3">
 							<input type="text" name="q" class="form-control text-center"
-								placeholder="검색어 입력" aria-label="검색어 입력"
+								placeholder="표제어 정보 예시 : 나무001, 사랑002 / 대상 코드 예시 : 368281, 1353206" 
+								aria-label="표제어 정보 예시 : 나무001, 사랑002 / 대상 코드 예시 : 368281, 1353206"
 								aria-describedby="button-addon2">
 							<div class="input-group-append">
 								<button
@@ -109,10 +114,6 @@ img {
 
 				</form>
 
-			</div>
-
-			<div align="center">
-				<div class="text-secondary">검색어는 한글, 영문, 숫자 모두 가능합니다.</div>
 			</div>
 
 			<br> <br> <br> <br> <br> <br> <br>
@@ -135,9 +136,5 @@ img {
 	<!-- 푸터 끝 -->
 
 </body>
-
-
-
-
 
 </html>
