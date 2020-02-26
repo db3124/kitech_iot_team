@@ -1,0 +1,17 @@
+1. Product name
+SmartHome
+
+2. Manufacturer name
+5G
+
+3. Model Id
+kitech-rasp-83260-smarthome-fihpf8
+
+4. Device type
+Speaker
+
+5. project Id
+kitech-rasp-83260
+
+C:\Users\bitcamp2\Downloads
+client_secret_290346032063-hbekiab37v7h7oi7vsnuuqniobiqn3jt.apps.googleusercontent.com.json
