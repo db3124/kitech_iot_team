@@ -1,0 +1,3 @@
+우리말샘
+사용 URL	  http://localhost:8080
+인증키	  7EDD1EDA2E0D739DA7565168C0C5262E

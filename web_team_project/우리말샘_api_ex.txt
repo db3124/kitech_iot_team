@@ -1,0 +1,13 @@
+
+rest-api
+https://opendict.korean.go.kr/api/search
+
+?
+
+certkey_no=1209
+&key=7EDD1EDA2E0D739DA7565168C0C5262E
+&target_type=search
+&part=word
+&q=%EC%BB%B4%ED%93%A8%ED%84%B0
+&sort=dict
+&start=1&num=10
