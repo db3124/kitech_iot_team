@@ -15,7 +15,7 @@
 """Sample that implements a gRPC client for the Google Assistant API."""
 
 # 라즈베리파이에서 I/O를 하기 위해 GPIO 임포트
-import RpiGPIO as GPIO
+import RPi.GPIO as GPIO
 
 import concurrent.futures
 import json
@@ -77,10 +77,8 @@ class SampleAssistant(object):
     def __init__(self, language_code, device_model_id, device_id,
                  conversation_stream, display,
                  channel, deadline_sec, device_handler):
-        # 한국어로 설정
-        self.language_code = ko-KR
-        # 디바이스 모델 아이디 등록
-        self.device_model_id = kitech-rasp-83260-smarthome-fihpf8
+        self.language_code = language_code
+        self.device_model_id = device_model_id
         self.device_id = device_id
         self.conversation_stream = conversation_stream
         self.display = display
@@ -207,7 +205,7 @@ class SampleAssistant(object):
             ),
             device_config=embedded_assistant_pb2.DeviceConfig(
                 device_id=self.device_id,
-                device_model_id=self.kitech-rasp-83260-smarthome-fihpf8,
+                device_model_id=self.device_model_id,
             )
         )
         if self.display:
@@ -253,7 +251,7 @@ class SampleAssistant(object):
               help='Path to save and restore the device configuration')
 @click.option('--lang', show_default=True,
               metavar='<language code>',
-              default='en-US',
+              default='ko-KR',
               help='Language code of the Assistant')
 @click.option('--display', is_flag=True, default=False,
               help='Enable visual display of Assistant responses in HTML.')
@@ -376,7 +374,7 @@ def main(api_endpoint, credentials, project_id,
             with open(device_config) as f:
                 device = json.load(f)
                 device_id = device['id']
-                device_model_id = device['kitech-rasp-83260-smarthome-fihpf8']
+                device_model_id = device['model_id']
                 logging.info("Using device model %s and device id %s",
                              device_model_id,
                              device_id)
@@ -398,7 +396,7 @@ def main(api_endpoint, credentials, project_id,
             device_id = str(uuid.uuid1())
             payload = {
                 'id': device_id,
-                'model_id': kitech-rasp-83260-smarthome-fihpf8,
+                'model_id': device_model_id,
                 'client_type': 'SDK_SERVICE'
             }
             session = google.auth.transport.requests.AuthorizedSession(
@@ -419,14 +417,13 @@ def main(api_endpoint, credentials, project_id,
     # 사용할 GPIO 핀 설정
     GPIO.setup(25, GPIO.OUT, initial=GPIO.LOW)
 
-    # 동작시 콘솔에 나오는 로그
     @device_handler.command('action.devices.commands.OnOff')
     def onoff(on):
         if on:
-            logging.info('불을 켰습니다.')
+            logging.info('Turning device on')
             GPIO.output(25, 1)
         else:
-            logging.info('불을 껐습니다.')
+            logging.info('Turning device off')
             GPIO.output(25, 0)
 
     @device_handler.command('com.example.commands.BlinkLight')
@@ -458,7 +455,7 @@ def main(api_endpoint, credentials, project_id,
         wait_for_user_trigger = not once
         while True:
             if wait_for_user_trigger:
-                click.pause(info='명령어를 말해주세요.')
+                click.pause(info='Press Enter to send a new request...')
             continue_conversation = assistant.assist()
             # wait for user trigger if there is no follow-up turn in
             # the conversation.
