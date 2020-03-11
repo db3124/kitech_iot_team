@@ -1,0 +1,14 @@
+1. Product name
+- Smart Home
+
+2. Manufacturer name
+- 5G
+
+3. Model ID
+- kitech-rasp-83260-smarthome-fihpf8
+
+3. Device type
+- Speaker
+
+4. Project ID
+- kitech-rasp-83260
