@@ -34,13 +34,7 @@ logger = logging.getLogger('fingerprintlog')
 hand = logging.FileHandler(date + '.log')
 
 #                              생성시간,   로그레벨 ,       프로세스ID,   메시지
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(process)d %(message)s')
-
-# 로그 프린트하는 함수
-def printLog(formatter):
-    time_log = formatter[:19]
-    return time_log
-
+formatter = logging.Formatter('%(asctime)s, %(levelname)s, %(process)d, %(message)s')
 
 # 파일핸들러에 문자열 포메터를 등록
 hand.setFormatter(formatter)
@@ -52,8 +46,28 @@ logger.setLevel(logging.INFO)
 logger.info('match')
 logger.warning('no match')
 
+# 로그 프린트하는 함수
+def printLog(formatter):
+
+    i = 0
+
+    while True:
+        
+        time_log = formatter[:23]
+
+        if len(formatter) == 0:
+            break
+        else:
+            if formatter[24] == 'I':
+                return print(time_log+', '+'지문 일치')
+            else:
+                return print(time_log+', '+'지문 불일치')
+
+        i = i + 1
 
 
+# 2020-03-11 14:12:51,432 INFO 13165 match
+# 2020-03-11 14:12:51,432 WARNING 13165 no match
 
 #############################################################3
 
