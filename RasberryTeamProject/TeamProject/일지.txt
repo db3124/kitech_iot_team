@@ -1,8 +1,8 @@
 2020. 2. 24
-0. 프로젝트 생성 및 구글 어시스턴트 api 다운로드
-https://console.cloud.google.com/home/dashboard?project=kitech-rasp-83260
+1. 프로젝트 생성 및 구글 어시스턴트 API 다운로드
+(1)https://console.cloud.google.com/home/dashboard?project=kitech-rasp-83260
 
-(1)
+(2) 프로젝트 개괄
 Product name : SmartHome
 
 Manufacturer name : 5G
@@ -10,21 +10,20 @@ Manufacturer name : 5G
 Model Id : kitech-rasp-83260-smarthome-fihpf8
 
 Device type : Speaker
-
 project Id : kitech-rasp-83260
 
 C:\Users\bitcamp2\Downloads
 client_secret_290346032063-hbekiab37v7h7oi7vsnuuqniobiqn3jt.apps.googleusercontent.com.json
 
-1. Google Assistant sdk 설치
+2. Google Assistant sdk 설치
 참고 영상
 https://www.youtube.com/watch?v=9XwRkN9HsiQ
 
-2. 샘플(pushtotalk) 오류 발생 
+3. 샘플(pushtotalk) 오류 발생 
  sounddevice.PortAudioError: Error querying device -1
 -bash: sounddevice.PortAudioError:: command not found
 
-3. 해결 아직 하지 못함
+4. 해결 아직 하지 못함
 
 2020. 2. 25
 1. 휴대폰용 이어폰 - 라즈베리파이 연결
@@ -101,14 +100,47 @@ https://fishpoint.tistory.com/2742
 
 2020. 3. 18
 1. 구글 어시스턴트 자동 실행
-(1) $ vi google-auto-start.sh
-(2) (편집화면) 
-    #!/env/bin
+(1) 명령어들의 집합 .sh 파일 만들기
+    : $ vi google-auto-start.sh
 
-    source env/bin/activate
-    google-assistant-demo&
+(2) (편집화면) 
+#!/env/bin
+
+source env/bin/activate
+cd /home/pi/env/lib/python3.7/site-packages/googlesamples/assistant/grpc
+python pushtotalk.py&
+    : #!/env/bin 뒤로는 모두 bash 명령어로 인식
 (2)-1 편집화면 끄기
-       : ESC -> :wq -> Enter
+    : ESC -> :wq -> Enter
+(2)-2 이미 편집 중이라서(내가 .sh를 잘못 끈듯 함), 제거 아님 복구
+    : vim -r google_auto_start.sh
+    : rm .google_auto_start.sh.swp
+
+(3) $ ls -l google_auto_start.sh
+(3)-1 .sh 파일을 실행가능하게 함(make it executable)
+-> https://askubuntu.com/questions/443789/what-does-chmod-x-filename-do-and-how-do-i-use-it
+    : $ sudo chmod +x google_auto_start.sh
+(3)-2 $ ls -l google_auto_start.sh
+
+(4) ./google-auto-start.sh 정상 실행
+
+(5) 스크립트 파일 작성
+    : cd .config/lxsession/LXDE-pi
+(5)-1 ls -l
+(5)-2 ls -l ~googl*
+->home/pi/google-auto-start.sh
+(5)-3 vi autostart (script파일)
+(5)-4 (편집화면)
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+@xscreensaver -no-splash
+@point-rpi
+/home/pi/google-auto-start.sh
+
+(6) sudo shutdown -r now
+(cf. ping -t 192.168.0.24)
+
+(7) completed!
 
 
 
