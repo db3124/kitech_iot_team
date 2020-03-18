@@ -142,6 +142,9 @@ python pushtotalk.py&
 
 (7) completed!
 
+2. 마이크, 스피커 연결 후 작동
+(1) 마이크된다!!!
+
 
 
 

@@ -147,6 +147,17 @@ class SampleAssistant(object):
                 logging.info('Transcript of user request: "%s".',
                              ' '.join(r.transcript
                                       for r in resp.speech_results))
+                myscript = ''.join(r.transcript for r in resp.speech_results)
+                print(myscript)
+                # 핀의 번호 할당 방법 지정
+                GPIO.setmode(GPIO.BCM)
+                # 사용할 GPIO 핀 설정
+                GPIO.setup(25, GPIO.OUT, initial=GPIO.LOW)
+                if (myscript == '불 켜'):
+                    GPIO.output(25, 1)
+                elif (myscript == '불 꺼'):
+                    GPIO.output(25, 0)
+                    
             if len(resp.audio_out.audio_data) > 0:
                 if not self.conversation_stream.playing:
                     self.conversation_stream.stop_recording()
@@ -412,19 +423,16 @@ def main(api_endpoint, credentials, project_id,
                 json.dump(payload, f)
 
     device_handler = device_helpers.DeviceRequestHandler(device_id)
-    # 핀의 번호 할당 방법 지정
-    GPIO.setmode(GPIO.BCM)
-    # 사용할 GPIO 핀 설정
-    GPIO.setup(25, GPIO.OUT, initial=GPIO.LOW)
+    
 
     @device_handler.command('action.devices.commands.OnOff')
     def onoff(on):
         if on:
             logging.info('Turning device on')
-            GPIO.output(25, 1)
+            # GPIO.output(25, 1)
         else:
             logging.info('Turning device off')
-            GPIO.output(25, 0)
+            # GPIO.output(25, 0)
 
     @device_handler.command('com.example.commands.BlinkLight')
     def blink(speed, number):
