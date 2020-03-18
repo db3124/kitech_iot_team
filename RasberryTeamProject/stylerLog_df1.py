@@ -12,6 +12,7 @@ CORS(app)
 
 @app.route("/log/<stylerDate>", methods =['GET'])
 def date(stylerDate):
+
     data_dic = stylerDate
 
     try:
@@ -20,10 +21,10 @@ def date(stylerDate):
                     names=['날짜', '시간','로그레벨', '프로세스ID', '촬영여부'], \
                     header=None)
     
-        # 로그의 일치여부 중 ReadyCapture, CaptureSuccess만 output
+        # '촬영여부' 중 ReadyCapture, CaptureSuccess만 output / Capture, SaveCapture, exit 제외
         df_cond = df[(df['촬영여부'] == 'ReadyCapture') | (df['촬영여부'] == 'CaptureSuccess')]
 
-        # '날짜', '시간', '일치여부' 컬럼만 output
+        # '날짜', '시간', '촬영여부' 컬럼만 output
         styler_df = df_cond.loc[:, ['날짜', '시간', '촬영여부']]
 
         return styler_df.to_html(justify='center')

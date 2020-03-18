@@ -12,6 +12,7 @@ CORS(app)
 
 @app.route("/log/<ledDate>", methods =['GET'])
 def date(ledDate):
+
     data_dic = ledDate
 
     try:
@@ -20,31 +21,16 @@ def date(ledDate):
                     names=['날짜', '시간','로그레벨', '프로세스ID', '점등여부'], \
                     header=None)
     
-        # 로그의 일치여부 중 LedOn, LedOff만 output
+        # '점등여부' 중 LedOn, LedOff만 output / ReadyLed 제외
         df_cond = df[(df['점등여부'] == 'LedOn') | (df['점등여부'] == 'LedOff')]
 
-        # '날짜', '시간', '일치여부' 컬럼만 output
+        # '날짜', '시간', '점등여부' 컬럼만 output
         led_df = df_cond.loc[:, ['날짜', '시간', '점등여부']]
 
         return led_df.to_html(justify='center')
         
     except:
-        return "Error"
-
-    # url = 'http://192.168.0.23:8080/smarthome/fingerprint/userFingerprintLog'
-
-    # files = {'fingerprint':open(df_no_nan.to_html(), 'rb')}
-    # data = {'fingerprint':df_no_nan.to_html()}
-    # r = requests.post(url, data=data)
-    # r.text
-    # print(r.text)
-
-    
-
-# @app.errorhandler(404)
-# def not_found(error):
-#     return make_response(jsonify({'error':'not used date'}))
-    
+        return "Error"  
 
 if __name__ == "__main__":              
     app.run(host="192.168.0.24", port=5000, debug=False)

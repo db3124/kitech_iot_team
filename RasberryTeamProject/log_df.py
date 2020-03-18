@@ -11,13 +11,14 @@ CORS(app)
 
 # 홈
 @app.route("/")
-def home():
-    return "Home"
+def index():
+    return "<h1>HOME</h1>"
 
 
 # 지문인식 로그 읽는 함수
 @app.route("/log/fingerprint/<fDate>", methods =['GET'])
 def finger_log(fDate):
+
     data_dic = fDate
 
     # pd.set_option('colheader_justify', 'center')
@@ -39,6 +40,7 @@ def finger_log(fDate):
 # 스타일러 로그 읽는 함수
 @app.route("/log/styler/<stylerDate>", methods =['GET'])
 def styler_log(stylerDate):
+
     data_dic = stylerDate
 
     try:
@@ -62,6 +64,7 @@ def styler_log(stylerDate):
 # 현관문 led 로그 읽는 함수
 @app.route("/log/led/<ledDate>", methods =['GET'])
 def led_log(ledDate):
+
     data_dic = ledDate
 
     try:
