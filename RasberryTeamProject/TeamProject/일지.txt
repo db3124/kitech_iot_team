@@ -82,6 +82,34 @@ https://wiki.dfrobot.com/DFRobot_Speaker_v1.0_SKU__FIT0449#target_2
 (1) 설정
 https://fishpoint.tistory.com/2742
 
+2020. 3. 16~2020. 3. 17
+1. 사용시간(로그 파일 中에)을 보여주기 위한 웹페이지 만들기
+-> ⓐ집에 들어갈 시 지문찍은 시간ⓑ현관문 꺼/켜지는 시간ⓒ스타일러 작동시간
+(1) flask, flask_cors를 통해 app만들고 서버와의 통신 준비
+    : app = Flask(__name_)
+    : CORS(app)
+(1)-1 서버에서 보내는 날짜를 받아 해당 날짜에 해당하는 로그 보여줌
+    : @app.route("log/fingerprint/<fDate>", methods=['GET'])
+(1)-2 서버에서 보내는 날짜에 해당하는 로그 파일이 없을 시 예외처리
+    : try / except
+(2) pandas를 통해 log파일 불러오기
+    : pd.read_csv(fDate+".log", sep=, names=[], head=None)
+(3) 불러온 log 파일 정렬, 특정 행&열만 보여주기 : .loc()
+(4) 사용자 페이지에서 보여주기 위해 html로 변환 : df.to_html()
+(5) if __name__ == "__main__":
+        app.run(host="192.168.0.24", port=5000, debug=False)
+
+2020. 3. 18
+1. 구글 어시스턴트 자동 실행
+(1) $ vi google-auto-start.sh
+(2) (편집화면) 
+    #!/env/bin
+
+    source env/bin/activate
+    google-assistant-demo&
+(2)-1 편집화면 끄기
+       : ESC -> :wq -> Enter
+
 
 
 
