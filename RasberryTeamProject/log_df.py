@@ -21,11 +21,9 @@ def finger_log(fDate):
 
     data_dic = fDate
 
-    # pd.set_option('colheader_justify', 'center')
-
     try:
         # 로그파일 불러오기
-        df = pd.read_csv(data_dic+".log", sep=' ', \
+        df = pd.read_csv("finger-"+data_dic+".log", sep=' ', \
                 names=['날짜', '시간','로그레벨', '프로세스ID', '일치여부'], \
                 header=None)
         # '날짜', '시간', '일치여부' 컬럼만 output
@@ -78,6 +76,27 @@ def led_log(ledDate):
 
         # '날짜', '시간', '일치여부' 컬럼만 output
         led_df = df_cond.loc[:, ['날짜', '시간', '점등여부']]
+
+        return led_df.to_html(justify='center')
+        
+    except:
+        return "Error"
+
+
+# 온습도 로그 읽는 함수
+@app.route("/log/temphumid/<thDate>", methods =['GET'])
+def date(thDate):
+
+    data_dic = thDate
+
+    try:
+        # 로그파일 불러오기
+        df = pd.read_csv("tempHumid-"+data_dic+".log", sep=' ', \
+                    names=['날짜', '시간','로그레벨', '프로세스ID', '온도', '습도'], \
+                    header=None)
+
+        # '날짜', '시간', '온도', '습도' 컬럼만 output
+        led_df = df.loc[:, ['날짜', '시간', '온도', '습도']]
 
         return led_df.to_html(justify='center')
         
