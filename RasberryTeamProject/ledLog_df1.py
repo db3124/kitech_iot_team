@@ -2,7 +2,6 @@ import pandas as pd
 import datetime
 from flask import Flask, request, Response, jsonify, make_response
 from flask_cors import CORS
-from IPython.display import display
 
 import requests
 import json

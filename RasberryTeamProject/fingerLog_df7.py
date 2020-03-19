@@ -14,13 +14,12 @@ def date(fDate):
 
     data_dic = fDate
 
-    # pd.set_option('colheader_justify', 'center')
-
     try:
         # 로그파일 불러오기
-        df = pd.read_csv(data_dic+".log", sep=' ', \
+        df = pd.read_csv("finger-"+data_dic+".log", sep=' ', \
                 names=['날짜', '시간','로그레벨', '프로세스ID', '일치여부'], \
                 header=None)
+
         # '날짜', '시간', '일치여부' 컬럼만 output
         finger_df = df.loc[:, ['날짜', '시간', '일치여부']]
 
