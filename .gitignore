@@ -91,7 +91,7 @@ local.properties
 *.class
 
 # Log file
-*.log
+# *.log
 
 # BlueJ files
 *.ctxt
@@ -287,7 +287,7 @@ local.properties
 proguard/
 
 # Log Files
-*.log
+# *.log
 
 # Android Studio Navigation editor temp files
 .navigation/
