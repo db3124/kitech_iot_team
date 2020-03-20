@@ -2,6 +2,7 @@ import pandas as pd
 import datetime
 from flask import Flask, request, Response, jsonify, make_response
 from flask_cors import CORS
+import matplotlib
 
 import requests
 import json
@@ -9,8 +10,8 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/log/<thDate>", methods =['GET'])
-def tempHumid_log(thDate):
+@app.route("/ts/<thDate>", methods =['GET'])
+def tempHumid_ts(thDate):
 
     data_dic = thDate
 
@@ -19,10 +20,10 @@ def tempHumid_log(thDate):
         df = pd.read_csv("tempHumid-"+data_dic+".log", sep=' ', \
                     names=['날짜', '시간','로그레벨', '프로세스ID', '온도(℃)', '습도(%)'], \
                     header=None)
-
+        
         # 온도 컬럼에서 숫자만 빼오기
         df['온도(℃)'] = df['온도(℃)'].str.slice(start=5, stop=-1)
-
+        
         # 습도 컬럼에서 숫자만 빼오기
         df['습도(%)'] = df['습도(%)'].str.slice(start=9, stop=-1)
 

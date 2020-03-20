@@ -1,6 +1,0 @@
-name, age, job
-john, 20, student
-jane, 25, developer
-brian, 46, manager
-annie, 45, head
-romily, 36, senior

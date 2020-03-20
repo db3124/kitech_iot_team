@@ -47,10 +47,10 @@ def styler_log(stylerDate):
                     names=['날짜', '시간','로그레벨', '프로세스ID', '촬영여부'], \
                     header=None)
     
-        # 로그의 일치여부 중 ReadyCapture, CaptureSuccess만 output
+        # 로그의 촬영여부 중 ReadyCapture, CaptureSuccess만 output
         df_cond = df[(df['촬영여부'] == 'ReadyCapture') | (df['촬영여부'] == 'CaptureSuccess')]
 
-        # '날짜', '시간', '일치여부' 컬럼만 output
+        # '날짜', '시간', '촬영여부' 컬럼만 output
         styler_df = df_cond.loc[:, ['날짜', '시간', '촬영여부']]
 
         return styler_df.to_html(justify='center')
@@ -71,10 +71,10 @@ def led_log(ledDate):
                     names=['날짜', '시간','로그레벨', '프로세스ID', '점등여부'], \
                     header=None)
     
-        # 로그의 일치여부 중 LedOn, LedOff만 output
+        # 로그의 점등여부 중 LedOn, LedOff만 output
         df_cond = df[(df['점등여부'] == 'LedOn') | (df['점등여부'] == 'LedOff')]
 
-        # '날짜', '시간', '일치여부' 컬럼만 output
+        # '날짜', '시간', '점등여부' 컬럼만 output
         led_df = df_cond.loc[:, ['날짜', '시간', '점등여부']]
 
         return led_df.to_html(justify='center')
@@ -84,8 +84,8 @@ def led_log(ledDate):
 
 
 # 온습도 로그 읽는 함수
-@app.route("/log/temphumid/<thDate>", methods =['GET'])
-def date(thDate):
+@app.route("/log/temphumid-1/<thDate>", methods =['GET'])
+def tempHumid_log(thDate):
 
     data_dic = thDate
 
@@ -96,9 +96,9 @@ def date(thDate):
                     header=None)
 
         # '날짜', '시간', '온도', '습도' 컬럼만 output
-        led_df = df.loc[:, ['날짜', '시간', '온도', '습도']]
+        th_df = df.loc[:, ['날짜', '시간', '온도', '습도']]
 
-        return led_df.to_html(justify='center')
+        return th_df.to_html(justify='center')
         
     except:
         return "Error"
