@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route("/log/<stylerDate>", methods =['GET'])
-def date(stylerDate):
+def styler_log(stylerDate):
 
     data_dic = stylerDate
 

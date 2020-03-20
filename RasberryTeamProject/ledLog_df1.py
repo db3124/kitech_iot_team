@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route("/log/<ledDate>", methods =['GET'])
-def date(ledDate):
+def led_log(ledDate):
 
     data_dic = ledDate
 

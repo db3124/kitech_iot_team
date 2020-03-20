@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route("/log/<thDate>", methods =['GET'])
-def tempHumid_log(thDate):
+def th_log(thDate):
 
     data_dic = thDate
 
@@ -35,5 +35,4 @@ def tempHumid_log(thDate):
         return "Error"  
 
 if __name__ == "__main__":              
-    # app.run(host="192.168.0.24", port=5000, debug=False)
-    app.run()
+    app.run(host="192.168.0.24", port=5000, debug=False)

@@ -1,5 +1,12 @@
+import base64
+from io import BytesIO
+
 import pandas as pd
-import datetime
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+
+from datetime import datetime
+
 from flask import Flask, request, Response, jsonify, make_response
 from flask_cors import CORS
 
@@ -26,10 +33,11 @@ def finger_log(fDate):
         df = pd.read_csv("finger-"+data_dic+".log", sep=' ', \
                 names=['날짜', '시간','로그레벨', '프로세스ID', '일치여부'], \
                 header=None)
+
         # '날짜', '시간', '일치여부' 컬럼만 output
         finger_df = df.loc[:, ['날짜', '시간', '일치여부']]
 
-        return finger_df.to_html(classes="mystle")
+        return finger_df.to_html(justify='center')
         
     except:
         return "Error"
@@ -47,7 +55,7 @@ def styler_log(stylerDate):
                     names=['날짜', '시간','로그레벨', '프로세스ID', '촬영여부'], \
                     header=None)
     
-        # 로그의 촬영여부 중 ReadyCapture, CaptureSuccess만 output
+        # '촬영여부' 중 ReadyCapture, CaptureSuccess만 output / Capture, SaveCapture, exit 제외
         df_cond = df[(df['촬영여부'] == 'ReadyCapture') | (df['촬영여부'] == 'CaptureSuccess')]
 
         # '날짜', '시간', '촬영여부' 컬럼만 output
@@ -71,7 +79,7 @@ def led_log(ledDate):
                     names=['날짜', '시간','로그레벨', '프로세스ID', '점등여부'], \
                     header=None)
     
-        # 로그의 점등여부 중 LedOn, LedOff만 output
+        # '점등여부' 중 LedOn, LedOff만 output / ReadyLed 제외
         df_cond = df[(df['점등여부'] == 'LedOn') | (df['점등여부'] == 'LedOff')]
 
         # '날짜', '시간', '점등여부' 컬럼만 output
@@ -80,26 +88,116 @@ def led_log(ledDate):
         return led_df.to_html(justify='center')
         
     except:
-        return "Error"
+        return "Error"  
 
 
 # 온습도 로그 읽는 함수
-@app.route("/log/temphumid-1/<thDate>", methods =['GET'])
-def tempHumid_log(thDate):
+@app.route("/log/temphumid/<thDate>", methods =['GET'])
+def th_log(thDate):
 
     data_dic = thDate
 
     try:
         # 로그파일 불러오기
         df = pd.read_csv("tempHumid-"+data_dic+".log", sep=' ', \
-                    names=['날짜', '시간','로그레벨', '프로세스ID', '온도', '습도'], \
+                    names=['날짜', '시간','로그레벨', '프로세스ID', '온도(℃)', '습도(%)'], \
                     header=None)
 
-        # '날짜', '시간', '온도', '습도' 컬럼만 output
-        th_df = df.loc[:, ['날짜', '시간', '온도', '습도']]
+        # 온도 컬럼에서 숫자만 빼오기
+        df['온도(℃)'] = df['온도(℃)'].str.slice(start=5, stop=-1)
+
+        # 습도 컬럼에서 숫자만 빼오기
+        df['습도(%)'] = df['습도(%)'].str.slice(start=9, stop=-1)
+
+        # '날짜', '시간', '온도(℃)', '습도(%)' 컬럼만 output
+        th_df = df.loc[:, ['날짜', '시간', '온도(℃)', '습도(%)']]
 
         return th_df.to_html(justify='center')
         
+    except:
+        return "Error" 
+
+
+@app.route("/log/temp/graph/<thDate>", methods=['GET'])
+def t_time(thDate):
+
+    data_dic = thDate
+
+    try:
+        # 로그파일 불러오기
+        df = pd.read_csv("tempHumid-"+data_dic+".log",
+                    names=['Datetime', 'etc'],
+                    header=None, index_col='Datetime')
+        
+        # 인덱스를 datetimeindex로 바꾸기
+        df.index = pd.to_datetime(df.index)
+
+        # etc 컬럼 나누기
+        df[['etc1', 'etc2', 'etc3', 'Temp', 'Humidity']] = \
+            df['etc'].str.split(' ', n=5, expand=True)
+
+        # Temp 컬럼에서 숫자만 빼오기, str->numeric
+        df['Temp'] = df['Temp'].str.slice(start=5, stop=-1)
+        df['Temp'] = df['Temp'].apply(pd.to_numeric)
+
+        # Generate the figure **without using pyplot**.
+        fig = Figure()
+        ax = fig.subplots()
+        ax.plot(df['Temp'])
+        ax.set_xlabel('Time')
+        ax.set_ylabel('Temprature(℃)')
+
+        # Save it to a temporary buffer.
+        buf = BytesIO()
+        fig.savefig(buf, format="png")
+
+        # Embed the result in the html output.
+        data = base64.b64encode(buf.getbuffer()).decode("ascii")
+
+        return f"<img src='data:image/png;base64,{data}'/>"
+
+    except:
+        return "Error"
+
+
+@app.route("/log/humidity/graph/<thDate>", methods=['GET'])
+def h_time(thDate):
+
+    data_dic = thDate
+
+    try:
+        # 로그파일 불러오기
+        df = pd.read_csv("tempHumid-"+data_dic+".log",
+                    names=['Datetime', 'etc'],
+                    header=None, index_col='Datetime')
+        
+        # 인덱스를 datetimeindex로 바꾸기
+        df.index = pd.to_datetime(df.index)
+
+        # etc 컬럼 나누기
+        df[['etc1', 'etc2', 'etc3', 'Temp', 'Humidity']] = \
+            df['etc'].str.split(' ', n=5, expand=True)
+
+        # Humidity 컬럼에서 숫자만 빼오기, str->numeric
+        df['Humidity'] = df['Humidity'].str.slice(start=9, stop=-1)
+        df['Humidity'] = df['Humidity'].apply(pd.to_numeric)
+
+        # Generate the figure **without using pyplot**.
+        fig = Figure()
+        ax = fig.subplots()
+        ax.plot(df['Humidity'])
+        ax.set_xlabel('Time')
+        ax.set_ylabel('Humidity(%)')
+
+        # Save it to a temporary buffer.
+        buf = BytesIO()
+        fig.savefig(buf, format="png")
+
+        # Embed the result in the html output.
+        data = base64.b64encode(buf.getbuffer()).decode("ascii")
+
+        return f"<img src='data:image/png;base64,{data}'/>"
+
     except:
         return "Error"
 
