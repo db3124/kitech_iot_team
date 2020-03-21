@@ -24,7 +24,7 @@ df['Temp'] = df['Temp'].apply(pd.to_numeric)
 # datetimeindex를 float타입으로
 idx_float = mpl.dates.date2num(df.index.to_pydatetime())
 
-# print(df['Temp'])
+print(df.style)
 # xx = df.index.df['Temp']
 # data_dict = {df['Temp']:idx_float}
 # print(data_dict)
@@ -32,3 +32,8 @@ idx_float = mpl.dates.date2num(df.index.to_pydatetime())
 # print(a)
 print(df)
 # print(idx_float)
+
+        # 최고점, 최저점 그래프상에 표시하기
+        # idx_float = mpl.dates.date2num(df.index.to_pydatetime())
+        # plt.annotate('Peak', xy=(idx_float, df['Temp']))
+        # plt.annotate('Peak',  xy=(0, df['Temp'].min()))
