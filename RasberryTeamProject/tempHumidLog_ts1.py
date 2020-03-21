@@ -4,6 +4,7 @@ from io import BytesIO
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
+import matplotlib.dates as mdates
 
 from datetime import datetime
 
@@ -39,11 +40,34 @@ def t_time(thDate):
         df['Temp'] = df['Temp'].apply(pd.to_numeric)
 
         # Generate the figure **without using pyplot**.
-        fig = Figure()
-        ax = fig.subplots()
-        ax.plot(df['Temp'])
-        ax.set_xlabel('Time')
-        ax.set_ylabel('Temprature(℃)')
+        # fig = Figure()
+        # ax = fig.subplots()
+        fig, ax = plt.subplots()
+
+        # 온도를 그래프로 그림
+        ax.plot(df['Temp'], color='#ff0303')
+
+        # x축, y축 라벨
+        ax.set_xlabel('Time', size=16)
+        ax.set_ylabel('Temprature(℃)', size=16)
+
+        # x축 간격 지정, 60초=1분
+        seconds = mdates.SecondLocator(interval = 60)
+        s_fmt = mdates.DateFormatter('%H:%M:%S')
+        ax.xaxis.set_major_locator(seconds)
+        ax.xaxis.set_major_formatter(s_fmt)
+
+        # Show the major grid lines
+        plt.grid(b=True, which='major', color='#b3b3b3', linestyle='-')
+
+        # Show the minor grid lines
+        plt.minorticks_on()
+        plt.grid(b=True, which='minor', color='#a6a6a6', linestyle='-', alpha=0.2)
+        
+        # 최고점, 최저점 그래프상에 표시하기
+        # idx_float = mpl.dates.date2num(df.index.to_pydatetime())
+        # plt.annotate('Peak', xy=(idx_float, df['Temp']))
+        # plt.annotate('Peak',  xy=(0, df['Temp'].min()))
 
         # Save it to a temporary buffer.
         buf = BytesIO()
@@ -84,8 +108,8 @@ def h_time(thDate):
         fig = Figure()
         ax = fig.subplots()
         ax.plot(df['Humidity'])
-        ax.set_xlabel('Time')
-        ax.set_ylabel('Humidity(%)')
+        ax.set_xlabel('Time', size=16)
+        ax.set_ylabel('Humidity(%)', size=16)
 
         # Save it to a temporary buffer.
         buf = BytesIO()
