@@ -2,8 +2,10 @@ import base64
 from io import BytesIO
 
 import pandas as pd
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
+import matplotlib.dates as mdates
 
 from datetime import datetime
 
@@ -174,10 +176,51 @@ def t_time(thDate):
 
         # Generate the figure **without using pyplot**.
         fig = Figure()
-        ax = fig.subplots()
-        ax.plot(df['Temp'])
-        ax.set_xlabel('Time')
-        ax.set_ylabel('Temprature(℃)')
+        fig, ax = plt.subplots()
+        
+        # 온도를 그래프로 그림, 선색 지정
+        ax.plot(df['Temp'], color='#ff0303')
+        
+        # 그래프 타이틀
+        title = '{}/{}/{}'.format(df.index.year[0], df.index.month[0], df.index.day[0])+'\'s temperature'
+        font = {'size': 23}
+        plt.title(title, fontdict=font)
+
+        # x축, y축 라벨
+        ax.set_xlabel('Time', size=16)
+        ax.set_ylabel('Temperature(℃)', size=16)
+        
+        # x축 간격 지정, 5분
+        minutes = mdates.MinuteLocator(interval = 5)
+        m_fmt = mdates.DateFormatter('%H:%M:%S')
+        ax.xaxis.set_major_locator(minutes)
+        ax.xaxis.set_major_formatter(m_fmt)
+
+        # Show the major grid lines
+        plt.grid(b=True, which='major', color='#b3b3b3', linestyle='-')
+
+        # Show the minor grid lines
+        plt.minorticks_on()
+        plt.grid(b=True, which='minor', color='#a6a6a6', linestyle='--', alpha=0.2)
+        
+        # 최고 온도일 때 주석
+        df_cond_max = df[df['Temp'] == df['Temp'].max()]
+        df_max = df_cond_max.loc[:, ['Temp']]
+        max_idx = mpl.dates.date2num(df_max.index.to_pydatetime())
+        # 최고 온도가 2개 이상일 떄 처리
+        for i in range(0, len(max_idx)):
+            plt.annotate('Highest', xy=(max_idx[i], df['Temp'].max()),\
+                horizontalalignment='right', verticalalignment='top', color='#154a31')
+
+        # 최저 온도일 때 주석
+        df_cond_min = df[df['Temp'] == df['Temp'].min()]
+        df_min = df_cond_min.loc[:, ['Temp']]
+        min_idx = mpl.dates.date2num(df_min.index.to_pydatetime())
+        # arrowprops  =dict(facecolor='black', headwidth=4, width=2, headlength=4)
+        # 최저 온도가 2개 이상일 떄 처리
+        for i in range(0, len(min_idx)):
+            plt.annotate('Lowest', xy=(min_idx[i], df['Temp'].min()),\
+                horizontalalignment='right', verticalalignment='top', color='#154a31')
 
         # Save it to a temporary buffer.
         buf = BytesIO()
@@ -215,11 +258,50 @@ def h_time(thDate):
         df['Humidity'] = df['Humidity'].apply(pd.to_numeric)
 
         # Generate the figure **without using pyplot**.
-        fig = Figure()
-        ax = fig.subplots()
-        ax.plot(df['Humidity'])
-        ax.set_xlabel('Time')
-        ax.set_ylabel('Humidity(%)')
+        fig, ax = plt.subplots()
+
+        # 습도를 그래프로 그림, 선색 지정
+        ax.plot(df['Humidity'], color='#ff0303')
+
+        # 그래프 타이틀
+        title = '{}/{}/{}'.format(df.index.year[0], df.index.month[0], df.index.day[0])+'\'s humidity'
+        font = {'size': 23}
+        plt.title(title, fontdict=font)
+
+        # x축, y축 라벨
+        ax.set_xlabel('Time', size=16)
+        ax.set_ylabel('Humidity(%)', size=16)
+
+        # x축 간격 지정, 2분
+        minutes = mdates.MinuteLocator(interval = 5)
+        m_fmt = mdates.DateFormatter('%H:%M:%S')
+        ax.xaxis.set_major_locator(minutes)
+        ax.xaxis.set_major_formatter(m_fmt)
+
+        # Show the major grid lines
+        plt.grid(b=True, which='major', color='#b3b3b3', linestyle='-')
+
+        # Show the minor grid lines
+        plt.minorticks_on()
+        plt.grid(b=True, which='minor', color='#a6a6a6', linestyle='--', alpha=0.2)
+        
+        # 최고 습도일 때 주석
+        df_cond_max = df[df['Humidity'] == df['Humidity'].max()]
+        df_max = df_cond_max.loc[:, ['Humidity']]
+        max_idx = mpl.dates.date2num(df_max.index.to_pydatetime())
+        # 최고 습도가 2개 이상일 떄 처리
+        for i in range(0, len(max_idx)):
+            plt.annotate('Highest', xy=(max_idx[i], df['Humidity'].max()),\
+                horizontalalignment='right', verticalalignment='top', color='#154a31')
+
+        # 최저 습도일 때 주석
+        df_cond_min = df[df['Humidity'] == df['Humidity'].min()]
+        df_min = df_cond_min.loc[:, ['Humidity']]
+        min_idx = mpl.dates.date2num(df_min.index.to_pydatetime())
+        # 최저 습도가 2개 이상일 떄 처리
+        for i in range(0, len(min_idx)):
+            plt.annotate('Lowest', xy=(min_idx[i], df['Humidity'].min()),\
+                horizontalalignment='right', verticalalignment='top', color='#154a31')
 
         # Save it to a temporary buffer.
         buf = BytesIO()
@@ -235,4 +317,5 @@ def h_time(thDate):
 
 
 if __name__ == "__main__":              
-    app.run(host="192.168.0.24", port=5000, debug=False)
+    # app.run(host="192.168.0.24", port=5000, debug=False)
+    app.run()
