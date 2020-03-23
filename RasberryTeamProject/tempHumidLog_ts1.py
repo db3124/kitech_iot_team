@@ -56,6 +56,10 @@ def t_time(thDate):
         ax.set_xlabel('Time', size=16)
         ax.set_ylabel('Temperature(℃)', size=16)
         
+        # 주석 달았을 때 그래프 밖으로 삐져 나오는 것 방지
+        ax.spines['top'].set_color('none')
+        ax.spines['right'].set_color('none')
+
         # x축 간격 지정, 5분
         minutes = mdates.MinuteLocator(interval = 5)
         m_fmt = mdates.DateFormatter('%H:%M:%S')
@@ -73,20 +77,24 @@ def t_time(thDate):
         df_cond_max = df[df['Temp'] == df['Temp'].max()]
         df_max = df_cond_max.loc[:, ['Temp']]
         max_idx = mpl.dates.date2num(df_max.index.to_pydatetime())
-        # 최고 온도가 2개 이상일 떄 처리
+        # 최고 온도가 2개 이상일 때 처리
+        arrowprops = dict(arrowstyle="->")
         for i in range(0, len(max_idx)):
-            plt.annotate('Highest', xy=(max_idx[i], df['Temp'].max()),\
-                horizontalalignment='right', verticalalignment='top', color='#154a31')
+            plt.annotate('{}'.format(df['Temp'].max()),\
+                xy=(max_idx[i], df['Temp'].max()), xytext=(max_idx[i]+0.0005, df['Temp'].max()),\
+                horizontalalignment='left', verticalalignment='top', color='#154a31',\
+                arrowprops=arrowprops, va='center')
 
         # 최저 온도일 때 주석
         df_cond_min = df[df['Temp'] == df['Temp'].min()]
         df_min = df_cond_min.loc[:, ['Temp']]
         min_idx = mpl.dates.date2num(df_min.index.to_pydatetime())
-        # arrowprops  =dict(facecolor='black', headwidth=4, width=2, headlength=4)
-        # 최저 온도가 2개 이상일 떄 처리
+        # 최저 온도가 2개 이상일 때 처리
         for i in range(0, len(min_idx)):
-            plt.annotate('Lowest', xy=(min_idx[i], df['Temp'].min()),\
-                horizontalalignment='right', verticalalignment='top', color='#154a31')
+            plt.annotate('{}'.format(df['Temp'].min()),\
+                xy=(min_idx[i], df['Temp'].min()), xytext=(min_idx[i]+0.0005, df['Temp'].min()),\
+                horizontalalignment='left', verticalalignment='top', color='#154a31',\
+                arrowprops=arrowprops, va='center')
 
         # Save it to a temporary buffer.
         buf = BytesIO()
@@ -138,6 +146,10 @@ def h_time(thDate):
         ax.set_xlabel('Time', size=16)
         ax.set_ylabel('Humidity(%)', size=16)
 
+        # 주석 달았을 때 그래프 밖으로 삐져 나오는 것 방지
+        ax.spines['top'].set_color('none')
+        ax.spines['right'].set_color('none')
+
         # x축 간격 지정, 2분
         minutes = mdates.MinuteLocator(interval = 5)
         m_fmt = mdates.DateFormatter('%H:%M:%S')
@@ -155,19 +167,24 @@ def h_time(thDate):
         df_cond_max = df[df['Humidity'] == df['Humidity'].max()]
         df_max = df_cond_max.loc[:, ['Humidity']]
         max_idx = mpl.dates.date2num(df_max.index.to_pydatetime())
-        # 최고 습도가 2개 이상일 떄 처리
+        arrowprops = dict(arrowstyle="->")
+        # 최고 습도가 2개 이상일 때 처리
         for i in range(0, len(max_idx)):
-            plt.annotate('Highest', xy=(max_idx[i], df['Humidity'].max()),\
-                horizontalalignment='right', verticalalignment='top', color='#154a31')
+            plt.annotate('{}'.format(df['Humidity'].max()),\
+                xy=(max_idx[i], df['Humidity'].max()), xytext=(max_idx[i]+0.0005, df['Humidity'].max()),\
+                horizontalalignment='left', verticalalignment='top', color='#154a31',\
+                arrowprops=arrowprops, va='center')
 
         # 최저 습도일 때 주석
         df_cond_min = df[df['Humidity'] == df['Humidity'].min()]
         df_min = df_cond_min.loc[:, ['Humidity']]
         min_idx = mpl.dates.date2num(df_min.index.to_pydatetime())
-        # 최저 습도가 2개 이상일 떄 처리
+        # 최저 습도가 2개 이상일 때 처리
         for i in range(0, len(min_idx)):
-            plt.annotate('Lowest', xy=(min_idx[i], df['Humidity'].min()),\
-                horizontalalignment='right', verticalalignment='top', color='#154a31')
+            plt.annotate('{}'.format(df['Humidity'].min()),\
+                xy=(min_idx[i], df['Humidity'].min()), xytext=(min_idx[i]+0.0005, df['Humidity'].min()),\
+                horizontalalignment='left', verticalalignment='top', color='#154a31',\
+                arrowprops=arrowprops, va='center')
 
         # Save it to a temporary buffer.
         buf = BytesIO()
@@ -183,5 +200,5 @@ def h_time(thDate):
 
 
 if __name__ == "__main__":              
-    #app.run(host="192.168.0.24", port=5000, debug=False)
-    app.run()
+    app.run(host="192.168.0.24", port=5000, debug=False)
+    
