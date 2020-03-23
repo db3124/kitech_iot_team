@@ -81,7 +81,8 @@ def t_time(thDate):
         arrowprops = dict(arrowstyle="->")
         for i in range(0, len(max_idx)):
             plt.annotate('{}'.format(df['Temp'].max()),\
-                xy=(max_idx[i], df['Temp'].max()), xytext=(max_idx[i]+0.0005, df['Temp'].max()),\
+                xy=(max_idx[i], df['Temp'].max()),\
+                xytext=(max_idx[i]+0.0005, df['Temp'].max()),\
                 horizontalalignment='left', verticalalignment='top', color='#154a31',\
                 arrowprops=arrowprops, va='center')
 
@@ -92,7 +93,8 @@ def t_time(thDate):
         # 최저 온도가 2개 이상일 때 처리
         for i in range(0, len(min_idx)):
             plt.annotate('{}'.format(df['Temp'].min()),\
-                xy=(min_idx[i], df['Temp'].min()), xytext=(min_idx[i]+0.0005, df['Temp'].min()),\
+                xy=(min_idx[i], df['Temp'].min()),\
+                xytext=(min_idx[i]+0.0005, df['Temp'].min()),\
                 horizontalalignment='left', verticalalignment='top', color='#154a31',\
                 arrowprops=arrowprops, va='center')
 
@@ -171,7 +173,8 @@ def h_time(thDate):
         # 최고 습도가 2개 이상일 때 처리
         for i in range(0, len(max_idx)):
             plt.annotate('{}'.format(df['Humidity'].max()),\
-                xy=(max_idx[i], df['Humidity'].max()), xytext=(max_idx[i]+0.0005, df['Humidity'].max()),\
+                xy=(max_idx[i], df['Humidity'].max()),\
+                xytext=(max_idx[i]+0.0005, df['Humidity'].max()),\
                 horizontalalignment='left', verticalalignment='top', color='#154a31',\
                 arrowprops=arrowprops, va='center')
 
@@ -182,7 +185,8 @@ def h_time(thDate):
         # 최저 습도가 2개 이상일 때 처리
         for i in range(0, len(min_idx)):
             plt.annotate('{}'.format(df['Humidity'].min()),\
-                xy=(min_idx[i], df['Humidity'].min()), xytext=(min_idx[i]+0.0005, df['Humidity'].min()),\
+                xy=(min_idx[i], df['Humidity'].min()),\
+                xytext=(min_idx[i]+0.0005, df['Humidity'].min()),\
                 horizontalalignment='left', verticalalignment='top', color='#154a31',\
                 arrowprops=arrowprops, va='center')
 
