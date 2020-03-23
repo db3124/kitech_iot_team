@@ -152,11 +152,12 @@ class SampleAssistant(object):
                 # 핀의 번호 할당 방법 지정
                 GPIO.setmode(GPIO.BCM)
                 # 사용할 GPIO 핀 설정
-                GPIO.setup(25, GPIO.OUT, initial=GPIO.LOW)
-                if (myscript == '불 켜'):
-                    GPIO.output(25, 1)
-                elif (myscript == '불 꺼'):
-                    GPIO.output(25, 0)
+                GPIO.setup(23, GPIO.OUT, initial=GPIO.LOW)
+                
+                if ((myscript == '불 켜') or (myscript == '켜') or (myscript == '불 켜 줘')):
+                    GPIO.output(23, 1)
+                elif ((myscript == '불 꺼') or (myscript == '꺼') or (myscript == '불 꺼 줘')):
+                    GPIO.output(23, 0)
                     
             if len(resp.audio_out.audio_data) > 0:
                 if not self.conversation_stream.playing:
