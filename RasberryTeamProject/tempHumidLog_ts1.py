@@ -152,7 +152,7 @@ def h_time(thDate):
         ax.spines['top'].set_color('none')
         ax.spines['right'].set_color('none')
 
-        # x축 간격 지정, 2분
+        # x축 간격 지정, 5분
         minutes = mdates.MinuteLocator(interval = 5)
         m_fmt = mdates.DateFormatter('%H:%M:%S')
         ax.xaxis.set_major_locator(minutes)
