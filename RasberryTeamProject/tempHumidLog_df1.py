@@ -29,6 +29,8 @@ def th_log(thDate):
         # '날짜', '시간', '온도(℃)', '습도(%)' 컬럼만 output
         th_df = df.loc[:, ['날짜', '시간', '온도(℃)', '습도(%)']]
 
+        show = th_df.to_html("tempHumid-"+data_dic+".html", justify='center')
+
         return th_df.to_html(justify='center')
         
     except:

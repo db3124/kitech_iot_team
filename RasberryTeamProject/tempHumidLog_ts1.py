@@ -43,7 +43,9 @@ def t_time(thDate):
         # Generate the figure **without using pyplot**.
         fig = Figure()
         fig, ax = plt.subplots()
-        
+        # 그래프 그림 크기
+        plt.rcParams["figure.figsize"] = (25,7)
+
         # 온도를 그래프로 그림, 선색 지정
         ax.plot(df['Temp'], color='#ff0303')
         
@@ -51,6 +53,7 @@ def t_time(thDate):
         title = '{}/{}/{}'.format(df.index.year[0], df.index.month[0], df.index.day[0])+'\'s temperature'
         font = {'size': 23}
         plt.title(title, fontdict=font)
+
 
         # x축, y축 라벨
         ax.set_xlabel('Time', size=16)
@@ -61,10 +64,10 @@ def t_time(thDate):
         ax.spines['right'].set_color('none')
 
         # x축 간격 지정, 5분
-        minutes = mdates.MinuteLocator(interval = 5)
-        m_fmt = mdates.DateFormatter('%H:%M:%S')
-        ax.xaxis.set_major_locator(minutes)
-        ax.xaxis.set_major_formatter(m_fmt)
+        hours = mdates.HourLocator(interval = 1)
+        h_fmt = mdates.DateFormatter('%H:%M:%S')
+        ax.xaxis.set_major_locator(hours)
+        ax.xaxis.set_major_formatter(h_fmt)
 
         # Show the major grid lines
         plt.grid(b=True, which='major', color='#b3b3b3', linestyle='-')
@@ -135,6 +138,8 @@ def h_time(thDate):
 
         # Generate the figure **without using pyplot**.
         fig, ax = plt.subplots()
+        # 그래프 그림 크기
+        plt.rcParams["figure.figsize"] = (25,7)
 
         # 습도를 그래프로 그림, 선색 지정
         ax.plot(df['Humidity'], color='#ff0303')
