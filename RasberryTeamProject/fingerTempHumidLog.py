@@ -18,14 +18,7 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-# 홈
-@app.route("/")
-def index():
-    return "<h1>HOME</h1>"
-
-
-# 지문인식 로그 읽는 함수
-@app.route("/log/fingerprint/<fDate>", methods =['GET'])
+@app.route("/log/<fDate>", methods =['GET'])
 def finger_log(fDate):
 
     data_dic = fDate
@@ -45,114 +38,6 @@ def finger_log(fDate):
         return "Error"
 
 
-# 스타일러 로그 읽는 함수
-@app.route("/log/styler/<stylerDate>", methods =['GET'])
-def styler_log(stylerDate):
-
-    data_dic = stylerDate
-
-    try:
-        # 로그파일 불러오기
-        df = pd.read_csv("styler-"+data_dic+".log", sep=' ', \
-                    names=['날짜', '시간','로그레벨', '프로세스ID', '촬영여부'], \
-                    header=None)
-    
-        # '촬영여부' 중 ReadyCapture, CaptureSuccess만 output / Capture, SaveCapture, exit 제외
-        df_cond = df[(df['촬영여부'] == 'ReadyCapture') | (df['촬영여부'] == 'CaptureSuccess')]
-
-        # '날짜', '시간', '촬영여부' 컬럼만 output
-        styler_df = df_cond.loc[:, ['날짜', '시간', '촬영여부']]
-
-        return styler_df.to_html(justify='center')
-
-    except:
-        return "Error"
-
-
-# 현관문 led 로그 읽는 함수
-@app.route("/log/led/<ledDate>", methods =['GET'])
-def led_log(ledDate):
-
-    data_dic = ledDate
-
-    try:
-        # 로그파일 불러오기
-        df = pd.read_csv("buttonLed-"+data_dic+".log", sep=' ', \
-                    names=['날짜', '시간','로그레벨', '프로세스ID', '점등여부'], \
-                    header=None)
-    
-        # '점등여부' 중 LedOn, LedOff만 output / ReadyLed 제외
-        df_cond = df[(df['점등여부'] == 'LedOn') | (df['점등여부'] == 'LedOff')]
-
-        # '날짜', '시간', '점등여부' 컬럼만 output
-        led_df = df_cond.loc[:, ['날짜', '시간', '점등여부']]
-
-        return led_df.to_html(justify='center')
-        
-    except:
-        return "Error"  
-
-
-# CCTV 로그 잆는 함수
-@app.route("/log/cctv/<cctvDate>", methods =['GET'])
-def cctv_log(cctvDate):
-
-    data_dic = cctvDate
-
-    try:
-        # 로그파일 불러오기
-        df = pd.read_csv("cctv-"+data_dic+".log", sep=' ', \
-                    names=['날짜', '시간','로그레벨', '프로세스ID', '라벨', '사진/동영상', '거리', ''], \
-                    header=None)
-        
-        df['사진/동영상'] = df['사진/동영상'].str.replace(
-            pat='cheking(', repl='', regex=False)
-        df['사진/동영상'] = df['사진/동영상'].str.replace(
-            pat='):', repl='', regex=False)
-
-        # '날짜', '시간', '사진/동영상' 컬럼만 output
-        cctv_df = df.loc[:, ['날짜', '시간', '사진/동영상']]
-
-        # def color_negative_red(val):
-        #     color = 'red' if val == 'Video' else 'black'
-        #     return 'color: %s' % color
- 
-        # cctv_df.style.applymap(color_negative_red)
-
-        return cctv_df.to_html(justify='center')
-
-    except:
-        return "Error"
-
-
-# 온습도 로그 읽는 함수
-@app.route("/log/temphumid/<thDate>", methods =['GET'])
-def th_log(thDate):
-
-    data_dic = thDate
-
-    try:
-        # 로그파일 불러오기
-        df = pd.read_csv("tempHumid-"+data_dic+".log", sep=' ', \
-                    names=['날짜', '시간','로그레벨', '프로세스ID', '온도(℃)', '습도(%)'], \
-                    header=None)
-
-        # 온도 컬럼에서 숫자만 빼오기
-        df['온도(℃)'] = df['온도(℃)'].str.slice(start=5, stop=-1)
-
-        # 습도 컬럼에서 숫자만 빼오기
-        df['습도(%)'] = df['습도(%)'].str.slice(start=9, stop=-1)
-
-        # '날짜', '시간', '온도(℃)', '습도(%)' 컬럼만 output
-        th_df = df.loc[:, ['날짜', '시간', '온도(℃)', '습도(%)']]
-
-        return th_df.to_html(justify='center')
-        
-    except:
-        return "Error" 
-
-
-# 온도 그래프
 @app.route("/log/t-graph/<thDate>", methods=['GET'])
 def t_time(thDate):
 
@@ -246,7 +131,6 @@ def t_time(thDate):
         return "Error"
 
 
-# 습도 그래프
 @app.route("/log/h-graph/<thDate>", methods=['GET'])
 def h_time(thDate):
 
@@ -341,4 +225,3 @@ def h_time(thDate):
 
 if __name__ == "__main__":              
     app.run(host="192.168.0.24", port=5000, debug=False)
-    
