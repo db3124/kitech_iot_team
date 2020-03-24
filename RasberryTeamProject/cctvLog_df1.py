@@ -9,7 +9,7 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/log/<cctvDate>", methods =['GET'])
+@app.route("/log/<cctvDate>", methods=['GET'])
 def cctv_log(cctvDate):
 
     data_dic = cctvDate
@@ -28,16 +28,11 @@ def cctv_log(cctvDate):
         # '날짜', '시간', '사진/동영상' 컬럼만 output
         cctv_df = df.loc[:, ['날짜', '시간', '사진/동영상']]
 
-        # def color_negative_red(val):
-        #     color = 'red' if val == 'Video' else 'black'
-        #     return 'color: %s' % color
- 
-        # cctv_df.style.applymap(color_negative_red)
-
-        return cctv_df.to_html(justify='center')
-
+        return cctv_df.to_html(justify="center")
+        
     except:
         return "Error"
+
 
 if __name__ == "__main__":              
     app.run(host="192.168.0.24", port=5000, debug=False)

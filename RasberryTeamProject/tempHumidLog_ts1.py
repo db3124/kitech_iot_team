@@ -1,6 +1,7 @@
 import base64
 from io import BytesIO
 
+import numpy as np
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -41,24 +42,32 @@ def t_time(thDate):
         df['Temp'] = df['Temp'].apply(pd.to_numeric)
 
         # Generate the figure **without using pyplot**.
-        fig = Figure()
         fig, ax = plt.subplots()
-        # 그래프 그림 크기
-        plt.rcParams["figure.figsize"] = (25,7)
-
-        # 온도를 그래프로 그림, 선색 지정
-        ax.plot(df['Temp'], color='#ff0303')
         
+        # 습도를 그래프로 그림, 선색 지정
+        ax.plot(df['Temp'], color='#ff0303')
+        # ax.bar(df.index, df['Temp'])
+        # ax.set_xlim(x)
+        # ax.set_ylim(-10, 40)
+
         # 그래프 타이틀
-        title = '{}/{}/{}'.format(df.index.year[0], df.index.month[0], df.index.day[0])+'\'s temperature'
+        title = '{}.{}.{}'.format(df.index.year[0], df.index.month[0], df.index.day[0])\
+            +'\'s temperature\n'\
+            +'Highest: {}℃ / '.format(df['Temp'].max())\
+            +'Lowest: {}℃\n'.format(df['Temp'].min())
+            
         font = {'size': 23}
         plt.title(title, fontdict=font)
+
+
+
 
 
         # x축, y축 라벨
         ax.set_xlabel('Time', size=16)
         ax.set_ylabel('Temperature(℃)', size=16)
         
+
         # 주석 달았을 때 그래프 밖으로 삐져 나오는 것 방지
         ax.spines['top'].set_color('none')
         ax.spines['right'].set_color('none')
@@ -72,46 +81,53 @@ def t_time(thDate):
         # Show the major grid lines
         plt.grid(b=True, which='major', color='#b3b3b3', linestyle='-')
 
-        # Show the minor grid lines
-        plt.minorticks_on()
-        plt.grid(b=True, which='minor', color='#a6a6a6', linestyle='--', alpha=0.2)
+        # # Show the minor grid lines
+        # plt.minorticks_on()
+        # plt.grid(b=True, which='minor', color='#a6a6a6', linestyle='--', alpha=0.1)
         
         # 최고 온도일 때 주석
-        df_cond_max = df[df['Temp'] == df['Temp'].max()]
-        df_max = df_cond_max.loc[:, ['Temp']]
-        max_idx = mpl.dates.date2num(df_max.index.to_pydatetime())
+        # df_cond_max = df[df['Temp'] == df['Temp'].max()]
+        # df_max = df_cond_max.loc[:, ['Temp']]
+        # max_idx = mpl.dates.date2num(df_max.index.to_pydatetime())
         # 최고 온도가 2개 이상일 때 처리
-        arrowprops = dict(arrowstyle="->")
-        for i in range(0, len(max_idx)):
-            plt.annotate('{}'.format(df['Temp'].max()),\
-                xy=(max_idx[i], df['Temp'].max()),\
-                xytext=(max_idx[i]+0.0005, df['Temp'].max()),\
-                horizontalalignment='left', verticalalignment='top', color='#154a31',\
-                arrowprops=arrowprops, va='center')
+        # arrowprops = dict(arrowstyle="->")
+        # for i in range(0, len(max_idx)):
+        #     plt.annotate('{}'.format(df['Temp'].max()),\
+        #         xy=(max_idx[i], df['Temp'].max()),\
+        #         xytext=(max_idx[i]+0.0005, df['Temp'].max()),\
+        #         horizontalalignment='left', verticalalignment='top', color='#154a31'
+        #         )
 
         # 최저 온도일 때 주석
-        df_cond_min = df[df['Temp'] == df['Temp'].min()]
-        df_min = df_cond_min.loc[:, ['Temp']]
-        min_idx = mpl.dates.date2num(df_min.index.to_pydatetime())
+        # df_cond_min = df[df['Temp'] == df['Temp'].min()]
+        # df_min = df_cond_min.loc[:, ['Temp']]
+        # min_idx = mpl.dates.date2num(df_min.index.to_pydatetime())
         # 최저 온도가 2개 이상일 때 처리
-        for i in range(0, len(min_idx)):
-            plt.annotate('{}'.format(df['Temp'].min()),\
-                xy=(min_idx[i], df['Temp'].min()),\
-                xytext=(min_idx[i]+0.0005, df['Temp'].min()),\
-                horizontalalignment='left', verticalalignment='top', color='#154a31',\
-                arrowprops=arrowprops, va='center')
+        # for i in range(0, len(min_idx)):
+        #     plt.annotate('{}'.format(df['Temp'].min()),\
+        #         xy=(min_idx[i], df['Temp'].min()),\
+        #         xytext=(min_idx[i]+0.0005, df['Temp'].min()),\
+        #         horizontalalignment='left', verticalalignment='top', color='#154a31',
+        #         )
 
         # Save it to a temporary buffer.
         buf = BytesIO()
-        fig.savefig(buf, format="png")
+        fig.set_size_inches(12, 9)
+        fig.savefig(buf, format="png", dpi=70)
 
         # Embed the result in the html output.
         data = base64.b64encode(buf.getbuffer()).decode("ascii")
 
+        print(df['Temp'].max())
+
         return f"<img src='data:image/png;base64,{data}'/>"
+
+        
 
     except:
         return "Error"
+
+    
 
 
 @app.route("/log/h-graph/<thDate>", methods=['GET'])
@@ -138,9 +154,7 @@ def h_time(thDate):
 
         # Generate the figure **without using pyplot**.
         fig, ax = plt.subplots()
-        # 그래프 그림 크기
-        plt.rcParams["figure.figsize"] = (25,7)
-
+        
         # 습도를 그래프로 그림, 선색 지정
         ax.plot(df['Humidity'], color='#ff0303')
 
