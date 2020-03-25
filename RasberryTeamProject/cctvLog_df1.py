@@ -33,6 +33,5 @@ def cctv_log(cctvDate):
     except:
         return "Error"
 
-
 if __name__ == "__main__":              
     app.run(host="192.168.0.24", port=5000, debug=False)

@@ -1,7 +1,6 @@
 import base64
 from io import BytesIO
 
-import numpy as np
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -50,10 +49,11 @@ def t_time(thDate):
         # 그래프 타이틀
         title = '{}.{}.{}'.format(df.index.year[0], df.index.month[0], df.index.day[0])\
             +'\'s temperature\n'\
+            +'──────────────────────\n'\
             +'Highest: {}℃ / '.format(df['Temp'].max())\
-            +'Lowest: {}℃\n'.format(df['Temp'].min())
+            +'Lowest: {}℃'.format(df['Temp'].min())
            
-        font = {'size': 23}
+        font = {'size': 20}
         plt.title(title, fontdict=font)
 
         # x축, y축 라벨
@@ -112,11 +112,9 @@ def t_time(thDate):
 
         return f"<img src='data:image/png;base64,{data}'/>"
 
-        
-
-    except:
+    except: 
         return "Error"
-   
+
 
 @app.route("/log/h-graph/<thDate>", methods=['GET'])
 def h_time(thDate):
@@ -149,10 +147,11 @@ def h_time(thDate):
         # 그래프 타이틀
         title = '{}.{}.{}'.format(df.index.year[0], df.index.month[0], df.index.day[0])\
             +'\'s humidity\n'\
-            +'Highest: {}℃ / '.format(df['Humidity'].max())\
-            +'Lowest: {}℃\n'.format(df['Humidity'].min())
-        
-        font = {'size': 23}
+            +'──────────────────────\n'\
+            +'Highest: {}% / '.format(df['Humidity'].max())\
+            +'Lowest: {}%'.format(df['Humidity'].min())
+           
+        font = {'size': 20}
         plt.title(title, fontdict=font)
 
         # x축, y축 라벨
