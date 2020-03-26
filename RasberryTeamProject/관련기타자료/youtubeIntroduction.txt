@@ -1,0 +1,122 @@
+[5G] Smart Home - 서버 및 클라이언트 페이지(Server + Client Page)
+본 프로젝트는 Raspberry Pi 3 B+/Raspberry Pi 3 B로 만들었습니다.
+
+
+프로젝트명 : Smart Home
+팀명 : 5G
+
+
+[5G] Smart Home - 기능(1) - 지문인식(Fingerprint Recognition)
+
+
+본 프로젝트는 Raspberry Pi 3 B+/Raspberry Pi 3 B로 만들었습니다.
+
+
+프로젝트명 : Smart Home
+팀명 : 5G
+기능 : 지문인식(Fingerprint Recognition)
+기능 설명 : 시스템에 등록된 지문일 시 자동문이 열리고, 새로운 지문이면 지문 등록 후 사용 가능합니다.
+
+
+
+[5G] Smart Home - 기능(2) - 자동문(Auto Door)
+
+본 프로젝트는 Raspberry Pi 3 B+/Raspberry Pi 3 B로 만들었습니다.
+
+
+프로젝트명 : Smart Home
+팀명 : 5G
+기능 : 현관 자동문(Auto Door)
+설명 : 지문인식 후, 지문이 일치하면 자동으로 문이 열립니다.
+
+
+[5G] Smart Home - 기능(3) - 실시간 CCTV(Real-Time CCTV)
+
+본 프로젝트는 Raspberry Pi 3 B+/Raspberry Pi 3 B로 만들었습니다.
+
+
+프로젝트명 : Smart Home
+팀명 : 5G
+기능 : 실시간 CCTV(Real-Time CCTV)
+설명 : 현관에 설치된 CCTV를 웹에서 실시간 확인 가능합니다. 상하좌우 각도를 조절할 수 있고, 화질도 설정할 수 있습니다.
+
+
+
+[5G] Smart Home - 기능(4) - 현관문 센서등(Front Door Led)
+
+본 프로젝트는 Raspberry Pi 3 B+/Raspberry Pi 3 B로 만들었습니다.
+
+
+프로젝트명 : Smart Home
+팀명 : 5G
+기능 : 현관문 센서등(Front Door Led)
+설명 : 현관에 들어서면, 센서가 감지해서 자동으로 불이 켜집니다.
+
+
+
+
+
+[5G] Smart Home - 기능(5) - 전등 제어(LED Control)
+
+본 프로젝트는 Raspberry Pi 3 B+/Raspberry Pi 3 B로 만들었습니다.
+
+
+프로젝트명 : Smart Home
+팀명 : 5G
+기능 : 전등 제어(LED Control)
+설명 : 웹(웹 브라우저)에서 집 안의 전등을 제어할 수 있습니다. 혹시나 집 안의 전등을 켜고 외출했다면? 간단하게 웹에서 끌 수 있습니다!
+
+
+
+
+[5G] Smart Home - 기능(6) - 구글 어시스턴트(Google Assistant)
+
+본 프로젝트는 Raspberry Pi 3 B+/Raspberry Pi 3 B로 만들었습니다.
+
+
+프로젝트명 : Smart Home
+팀명 : 5G
+기능 : 구글 어시스턴트(Google Assistant)
+설명 : Raspberry Pi에 Google Assistant SDK를 설치한 후, Google Assistant로 양방향 대화를 할 수 있고, 집 안의 전등도 제어할 수 있습니다. 
+
+
+
+
+
+[5G] Smart Home - 기능(7) - 스마트 스타일러(Smart Styler)
+
+본 프로젝트는 Raspberry Pi 3 B+/Raspberry Pi 3 B로 만들었습니다.
+
+
+프로젝트명 : Smart Home
+팀명 : 5G
+기능 : 스마트 스타일러(Smart Styler)
+설명 : 웹캡과의 거리를 10cm 내로 유지한 채 웹에서 '촬영' 버튼을 누르면, 촬영이 완료됩니다. 그동안 촬영한 스타일을 확인할 수 있고, 오늘 무엇을 입을지 고민된다면 그동안 입었던 스타일 중에서 추천을 받을 수 있습니다.
+
+
+
+
+[5G] Smart Home - 기능(8) - 스마트 선풍기(Smart Fan)
+
+본 프로젝트는 Raspberry Pi 3 B+/Raspberry Pi 3 B로 만들었습니다.
+
+
+프로젝트명 : Smart Home
+팀명 : 5G
+기능 : 스마트 선풍기(Smart Fan)
+설명 : 실내온도에 따라 선풍기의 세기가 달라집니다. 약풍, 강풍, No바람으로 설정되어 자동으로 선풍기가 작동되고, 스위치로 선풍기를 끌 수 있습니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
